@@ -5,19 +5,19 @@ const weather = require('openweathermap-js');        /*Open Weather APi*/
 var Promise = require('promise');
 
 //! DB connectin reference
-/*
+
 var db = mongoose.connection;
 //! When there is an ERROR in connnection
 db.on('error', function callback(err) {console.log("Database connection failed. Error: " + err);});
 //! When DB Connection is made successfully
 db.once('open', function callback() {console.log("Database connection successful.");});
 //! Mongoose connection to MongoDB 
-mongoose.connect('mongodb://localhost:27017/helmet-db', function (error) {
+mongoose.connect(process.env.MONGODB_URI||'mongodb://localhost:27017/helmetsafety', function (error) {
     if (error != null) {
         console.log(error);
     }
 });
-*/
+
 
 /*OpenWeather API KEY*/
 var weatherkey = "0078a5fc6f82112d6c8c3587c19ec745";

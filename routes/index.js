@@ -5,6 +5,7 @@ const weather = require('openweathermap-js');        /*Open Weather APi*/
 var Promise = require('promise');
 
 //! DB connectin reference
+/*
 var db = mongoose.connection;
 //! When there is an ERROR in connnection
 db.on('error', function callback(err) {console.log("Database connection failed. Error: " + err);});
@@ -16,7 +17,7 @@ mongoose.connect('mongodb://localhost:27017/helmet-db', function (error) {
         console.log(error);
     }
 });
-
+*/
 
 /*OpenWeather API KEY*/
 var weatherkey = "0078a5fc6f82112d6c8c3587c19ec745";

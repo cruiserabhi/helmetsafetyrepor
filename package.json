@@ -14,12 +14,14 @@
     "debug": "~2.6.3",
     "ejs": "~2.5.6",
     "express": "~4.15.2",
+    "moment-timezone": "^0.5.13",
     "mongoose": "^4.10.0",
     "morgan": "~1.8.1",
     "openweathermap": "^1.0.0",
     "openweathermap-js": "^1.0.1",
     "promise": "^7.1.1",
     "request": "^2.81.0",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "socket.io": "^2.0.1"
   }
 }

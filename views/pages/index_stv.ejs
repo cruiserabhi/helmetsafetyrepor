@@ -1,0 +1,42 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h1>Tracking User Location</h1>
+            <p>VIN: <%= userID %></p>
+        </div>
+    </main>
+
+   <div id="map"></div>
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQI7WEFjkev1SR4yTObVh0Hs8zb-0jkLc&v=3.exp"></script>
+<script src="../js/gmaps.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="../js/script.js"></script>   
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+  console.log("VIN :"+ "<%= userID %>" );         
+  var iosocket = io.connect('http://' + '169.38.78.131' + ':' + '8125');
+  iosocket.on('connect', function (data) {
+          iosocket.emit('storeClientInfo', { customId: "<%= userID %>"  });
+  });
+  iosocket.on('LocationInfo', function(msg){
+    console.log("\nLocation Received: " + msg.lat + "-" + msg.long);
+    traceroute(msg.lat , msg.long);
+  });
+</script> 
+</body>
+</html>

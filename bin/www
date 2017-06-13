@@ -12,9 +12,10 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-//var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3000');
 //var port = 8125;
-var port = process.env.PORT || 8125;
+//var port = process.env.PORT || 8125;
+//var port = 8125;
 app.set('port', port);
 
 /**
@@ -90,3 +91,27 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+clients = [];
+io = require('socket.io')(server);
+io.on('connection', function(socket){
+  socket.on('storeClientInfo', function (data) {
+    var clientInfo = new Object();
+    clientInfo.customId = data.customId;
+    clientInfo.clientId = socket.id;
+    console.log("\nClient Connected via SOCKET: "+ clientInfo.customId);
+    clients.push(clientInfo);
+    socket.join(data.customId);
+  });	
+  socket.on('disconnect', function(){
+	for( var i=0, len=clients.length; i<len; ++i ){
+	    var c = clients[i];
+	    if(c.clientId == socket.id){
+	        clients.splice(i,1);
+	        console.log("\nClient Disonnected via SOCKET: "+ c.customId);
+	        socket.leave(c.customId);
+	        break;
+	    }
+	}
+  });
+});

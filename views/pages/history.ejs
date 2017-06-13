@@ -1,0 +1,80 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+	<style>
+	h5,h6,h3 { display: inline; } 
+	ul, li{
+	margin:0;
+	padding:0 0 0 15px;    
+	}
+	.column{
+    float: left;
+    margin: 0 20px 0 0;
+	}
+	</style>
+</head>
+<body class="container">
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h1>Worker Safety</h1>
+        </div>
+    </main>
+<div class="topnav" id="myTopnav">
+	<a href="./attend">Dashboard</a>
+	<a href="./history">History</a>
+	<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+<footer>
+        <% include ../partials/footer %>
+</footer>
+<link rel="stylesheet" href="../../stylesheets/sheet.css">
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>	
+	/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+	function myFunction() {
+		var x = document.getElementById("myTopnav");
+		if (x.className === "topnav") {
+			x.className += " responsive";
+		} else {
+			x.className = "topnav";
+		}
+	}
+</script>	
+  <table class="table table-bordered">
+	<tr>
+	<th>Worker ID</th> 
+	<th>Worker Name</th> 
+	<th>Entered Premises At</th> 
+	<th>Wearing Helmet</th> 
+	<th>Time of Helmet Removal/Wearing Event</th> 
+	<th>Zone</th> 
+	</tr>
+
+	<% for (var i = 0; i < users.length; i++) { %>
+	<tr>
+		<td rowspan=<%= users[i].helmet.length + 1 %>><%= users[i].username %></td>
+		<td rowspan=<%= users[i].helmet.length + 1 %>><%= users[i].name %></td>
+		<td rowspan=<%= users[i].helmet.length + 1 %>><%= users[i].created_at %></td>
+	<% for (var j = 0; j < users[i].helmet.length; j++) { %>
+		<tr>
+		<td><%= users[i].helmet[j].status %></td>
+		<td><%= users[i].helmet[j].updated_at %></td>
+		<td><%= users[i].helmet[j].location %></td>
+		</tr>
+	<% } %>
+	</tr>
+	<% } %>
+
+  </table>
+</body>
+</html>

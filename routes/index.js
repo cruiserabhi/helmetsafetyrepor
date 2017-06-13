@@ -3,8 +3,13 @@ var request = require('request');               /*Express Request model*/
 var mongoose = require('mongoose');             /*MongoDB NodeJS Driver*/
 const weather = require('openweathermap-js');        /*Open Weather APi*/
 var Promise = require('promise');
+var moment = require('moment-timezone');        /*For DateTime*/
 
 //! DB connectin reference
+
+/*
+ * HEROKU mLAB ID: mongodb://helmetsafety:heliumneon@ds147711.mlab.com:47711/helmetsafety
+*/
 
 var db = mongoose.connection;
 //! When there is an ERROR in connnection
@@ -28,6 +33,12 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+//! Convert CST time to IST
+function GetIST() {
+    var m = moment.tz("America/Toronto");
+    return (m.tz("Asia/Kolkata").format().replace("+05:30", " "));
+}
 
 function requestData(lat, long)
 {
